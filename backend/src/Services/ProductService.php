@@ -12,7 +12,7 @@ class ProductService {
     }
 
     public function generateQRCodeData($productId) {
-        return "/product/" . $productId; // Stocke uniquement le chemin relatif en base
+        return "/product/" . $productId;
     }
 
     public function addProduct($data) {
