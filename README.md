@@ -8,11 +8,9 @@ Un système qui permet aux utilisateurs de scanner un QR code pour consulter, aj
 - Créer une base de données `inventaire`
 - Table `type_products` avec les colonnes : `{ id, nom, quantite, prix, url_img, qr_code }`
 - Écrire une API PHP pour :
-  - Ajouter un produit
+  - Inrémenter ou décrémenter la quantité d'un type de produit
   - Récupérer la liste des produits
-  - Modifier un produit
-  - Supprimer un produit
-  - Générer un QR code produit
+  - Générer un QR code produit et télécharger
   - Récupérer un produit via son QR code
 
 ## Frontend (React)
