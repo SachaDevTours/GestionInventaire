@@ -1,0 +1,15 @@
+CREATE TABLE batches (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    price DOUBLE(20, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE products (
+    id_mac VARCHAR(255) PRIMARY KEY,
+    lot_id BIGINT NOT NULL,
+    nom VARCHAR(255) NOT NULL,
+    url_image VARCHAR(255),
+    url_qr_code VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (lot_id) REFERENCES batches(id) ON DELETE CASCADE
+);
