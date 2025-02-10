@@ -1,1 +1,4 @@
 .idea/
+# Composer
+/backend/vendor/
+/backend/composer.lock
