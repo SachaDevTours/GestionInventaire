@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import { addProduct } from "../services/api";
 
 const AddProductPage = () => {
@@ -9,7 +7,8 @@ const AddProductPage = () => {
 
     const [productName, setProductName] = useState("");
     const [macAddress, setMacAddress] = useState("");
-    const [image, setImage] = useState(null);
+
+    const [imageFile, setImageFile] = useState(null);
 
     const [preview, setPreview] = useState(null);
     const [error, setError] = useState("");
@@ -17,7 +16,7 @@ const AddProductPage = () => {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setImage(file);
+            setImageFile(file);
             setPreview(URL.createObjectURL(file));
         }
     };
@@ -30,7 +29,7 @@ const AddProductPage = () => {
             return;
         }
 
-        const response = await addProduct(productName, macAddress, image);
+        const response = await addProduct(productName, macAddress, imageFile);
 
         if (response.success) {
             navigate("/");
