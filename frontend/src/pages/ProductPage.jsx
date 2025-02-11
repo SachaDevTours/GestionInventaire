@@ -1,10 +1,8 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { FaDownload, FaPlus, FaMinus } from "react-icons/fa";
 
 const ProductPage = () => {
     const location = useLocation();
-    const navigate = useNavigate();
     const product = location.state?.product; // Récupération des données envoyées via navigate()
 
     if (!product) {
