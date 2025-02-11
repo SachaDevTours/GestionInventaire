@@ -10,9 +10,10 @@ return function (App $app, ProductController $productController) {
         return $response->withHeader('Content-Type', 'application/json');
     });
 
-    $app->get('/products', [$productController, 'getAllProducts']);
-    $app->get('/products/{id}', [$productController, 'getProductById']);
-    $app->post('/products', [$productController, 'addProduct']);
-    $app->put('/products/{id}', [$productController, 'updateProduct']);
-    $app->delete('/products/{id}', [$productController, 'deleteProduct']);
+    // $app->get('/products', [$productController, 'getAllProducts']);
+    $app->get('/products', [$productController, 'getProducts']);
+    $app->post('/product', [$productController, 'addProduct']);
+    $app->put('/product', [$productController, 'updateProduct']);
+    $app->delete('/product', [$productController, 'deleteProduct']);
+
 };

@@ -12,6 +12,18 @@ class ProductController {
         $this->productService = $productService;
     }
 
+    public function getProducts(Request $request, Response $response): Response {
+        $queryParams = $request->getQueryParams();
+        if (isset($queryParams['id'])) {
+            $result = $this->productService->getProductById($queryParams['id']);
+        } else {
+            $result = $this->productService->getAllProducts();
+        }
+
+        $response->getBody()->write(json_encode($result));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
     public function addProduct(Request $request, Response $response): Response {
         $data = $request->getParsedBody();
         $files = $request->getUploadedFiles();
@@ -27,22 +39,30 @@ class ProductController {
         return $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function getAllProducts(Request $request, Response $response): Response {
-        $result = $this->productService->getAllProducts();
+    public function updateProduct(Request $request, Response $response): Response {
+        $queryParams = $request->getQueryParams();
+        if (!isset($queryParams['id'])) {
+            return $response->withStatus(400)->withHeader('Content-Type', 'application/json')
+                ->getBody()->write(json_encode(["error" => "ID du produit manquant"]));
+        }
+
+        $data = $request->getParsedBody();
+        $data['id'] = $queryParams['id'];
+        $result = $this->productService->updateProduct($data);
+        
         $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function getProductById(Request $request, Response $response, $args): Response {
-        $id = $args['id'];
-        $result = $this->productService->getProductById($id);
-
-        if ($result) {
-            $response->getBody()->write(json_encode($result));
-        } else {
-            return $response->withStatus(404)->withHeader('Content-Type', 'application/json')
-                ->getBody()->write(json_encode(["error" => "Produit non trouvé"]));
+    public function deleteProduct(Request $request, Response $response): Response {
+        $queryParams = $request->getQueryParams();
+        if (!isset($queryParams['id'])) {
+            return $response->withStatus(400)->withHeader('Content-Type', 'application/json')
+                ->getBody()->write(json_encode(["error" => "ID du produit manquant"]));
         }
+
+        $result = $this->productService->deleteProduct($queryParams['id']);
+        $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');
     }
 }
