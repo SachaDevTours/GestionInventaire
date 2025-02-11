@@ -34,6 +34,146 @@ export const getProducts = async () => {
             url_image: "",
             url_qr_code: "https://via.placeholder.com/qr-code",
         },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        },
+        {
+            id_mac: "00:1C:2D:3E:4F:5G",
+            lot_id: 1003,
+            nom: "Clavier Mécanique",
+            url_image: "",
+            url_qr_code: "https://via.placeholder.com/qr-code",
+        }
     ];
 };
 
@@ -45,7 +185,7 @@ export const addProduct = async (productName, macAddress, image) => {
         if (image)
             formData.append("image", image);
 
-        const response = await axios.post(`${API_URL}/add-product.php`, formData, {
+        const response = await axios.post(`${API_URL}/products`, formData, {
             headers: { "Content-Type": "multipart/form-data" },
         });
 
