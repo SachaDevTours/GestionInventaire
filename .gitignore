@@ -2,3 +2,4 @@
 # Composer
 /backend/vendor/
 /backend/composer.lock
+/frontend/
