@@ -15,19 +15,19 @@ export const getProducts = async () => {
     return [
         {
             id_mac: "00:1A:2B:3C:4D:5E",
-            nom: "Ordinateur Portable",
+            name: "Ordinateur Portable",
             url_image: "",
             url_qr_code: "https://via.placeholder.com/qr-code",
         },
         {
             id_mac: "00:1B:2C:3D:4E:5F",
-            nom: "Souris Sans Fil",
+            name: "Souris Sans Fil",
             url_image: "",
             url_qr_code: "https://via.placeholder.com/qr-code",
         },
         {
             id_mac: "00:1C:2D:3E:4F:5G",
-            nom: "Clavier Mécanique",
+            name: "Clavier Mécanique",
             url_image: "",
             url_qr_code: "https://via.placeholder.com/qr-code",
         }

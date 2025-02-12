@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../services/api";
-import { motion } from "framer-motion";
 
 const AddProductPage = () => {
     const navigate = useNavigate();
@@ -38,20 +37,20 @@ const AddProductPage = () => {
 
     return (
         <div className="container mx-auto mt-20 p-4">
-            <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg mx-auto">
-                <h2 className="text-center text-blue-600 text-2xl font-semibold mb-6">
+            <div className="bg-background-secondary rounded-lg p-6 max-w-lg mx-auto">
+                <h2 className="text-center text-accent text-2xl font-semibold mb-6">
                     Ajouter un produit
                 </h2>
 
                 {error && (
-                    <div className="text-red-500 bg-red-100 p-3 rounded-md text-center mb-4">
+                    <div className="text-red-500 bg-background-accent/10 p-3 rounded-md text-center mb-4">
                         {error}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-gray-700 font-medium mb-2">
+                        <label className="block text-primary font-medium mb-2">
                             Nom du produit
                         </label>
                         <input
@@ -59,13 +58,13 @@ const AddProductPage = () => {
                             name="name"
                             value={productName}
                             onChange={(e) => setProductName(e.target.value)}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full p-3 bg-background-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-primary"
                             required
                         />
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 font-medium mb-2">
+                        <label className="block text-primary font-medium mb-2">
                             Adresse MAC
                         </label>
                         <input
@@ -73,13 +72,13 @@ const AddProductPage = () => {
                             name="macAddress"
                             value={macAddress}
                             onChange={(e) => setMacAddress(e.target.value)}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            className="w-full p-3 bg-background-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-primary"
                             required
                         />
                     </div>
 
                     <div>
-                        <label className="block text-gray-700 font-medium mb-2">
+                        <label className="block text-primary font-medium mb-2">
                             Image du produit (optionnel)
                         </label>
                         <input
@@ -87,14 +86,14 @@ const AddProductPage = () => {
                             name="image"
                             accept="image/*"
                             onChange={handleImageChange}
-                            className="w-full p-3 border border-gray-300 rounded-lg cursor-pointer"
+                            className="w-full p-3 bg-background-secondary border border-accent/20 rounded-lg cursor-pointer text-primary file:bg-background-accent file:text-secondary file:border-0 file:rounded-md file:px-4 file:py-2 file:mr-4 file:cursor-pointer file:hover:bg-background-accent/80 file:transition-colors"
                         />
                         {preview && (
                             <div className="mt-4 flex justify-center">
                                 <img
                                     src={preview}
                                     alt="Aperçu"
-                                    className="rounded-lg shadow-md h-40 w-40 object-cover"
+                                    className="rounded-lg h-40 w-40 object-cover border border-accent/20"
                                 />
                             </div>
                         )}
@@ -102,7 +101,7 @@ const AddProductPage = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-200"
+                        className="w-full bg-background-accent text-secondary px-6 py-3 rounded-lg hover:bg-background-accent/80 hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
                     >
                         Ajouter
                     </button>
