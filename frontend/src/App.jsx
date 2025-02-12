@@ -10,12 +10,12 @@ import AddProductPage from "./pages/AddProductPage";
 const App = () => {
     return (
         <Router>
-            <Header />
+            <Header/>
 
             <Routes>
-                <Route path="/" element={<InventoryPage />} />
-                <Route path="/product" element={<ProductPage />} />
-                <Route path="/add-product" element={<AddProductPage />} />
+                <Route path="/" element={<InventoryPage/>}/>
+                <Route path="/product" element={<ProductPage/>}/>
+                <Route path="/add-product" element={<AddProductPage/>}/>
 
             </Routes>
         </Router>
