@@ -1,34 +1,33 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ProductPage = () => {
     const location = useLocation();
-    const product = location.state?.product; // Récupération des données envoyées via navigate()
+    const product = location.state?.product;
 
     if (!product) {
-        return (
-            <div className="container text-center mt-5">
-                <p>⚠️ Produit introuvable.</p>
-            </div>
-        );
+        return <div className="container mx-auto mt-10 text-center text-red-500 text-xl">❌ Produit non trouvé.</div>;
     }
 
     return (
-        <div className="container mt-4">
-            <div className="card shadow-sm p-3 text-center">
-                <div className="d-flex justify-content-center">
+        <div className="container mx-auto mt-20 p-4">
+            <div className="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto">
+                <h2 className="text-center text-blue-600 text-2xl font-semibold">
+                    {product.nom}
+                </h2>
+
+                <div className="flex justify-center my-4">
                     <img
-                        src={product.url_image || "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"}
-                        className="rounded"
+                        src={product.image || "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"}
+                        className="rounded-lg shadow-md h-40 w-40 object-cover"
                         alt={product.nom}
-                        style={{ width: "300px", height: "300px", objectFit: "cover", marginTop: "10px" }}
                     />
                 </div>
 
-                <div className="card-body">
-                    <h3 className="card-title">{product.nom}</h3>
-                    <p className="card-text text-muted"><strong>MAC :</strong> {product.id_mac}</p>
-                </div>
+                <p className="text-center text-lg text-gray-700 font-medium">
+                    <strong>Adresse MAC :</strong> {product.id_mac}
+                </p>
             </div>
         </div>
     );
