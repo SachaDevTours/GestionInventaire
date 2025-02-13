@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
+
 import { getProduct } from "../services/api";
-import TableSkeleton from "../components/skeletons/TableSkeleton.jsx";
 import ProductSkeleton from "../components/skeletons/ProductSkeleton.jsx";
 import ErrorMessage from "../components/ErrorMessage.jsx";
 
 const ProductPage = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,7 +19,10 @@ const ProductPage = () => {
 
         (async () => {
             try {
-                if (!id) throw new Error("ID du produit manquant");
+                if (!id) {
+                    setError("ID du produit manquant");
+                    return;
+                }
 
                 const data = await getProduct(id);
 
