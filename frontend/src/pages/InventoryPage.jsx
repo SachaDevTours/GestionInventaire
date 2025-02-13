@@ -4,17 +4,56 @@ import { motion } from "framer-motion";
 
 import { getProducts } from "../services/api";
 import { downloadQRCodeSVG } from "../utils/qrCodeUtils";
+import TableSkeleton from "../components/skeletons/TableSkeleton.jsx";
+import ErrorMessage from "../components/ErrorMessage.jsx";
 
 const InventoryPage = () => {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     useEffect(() => {
-        (async () => {
-            const data = await getProducts();
-            setProducts(data);
-        })();
+        let isMounted = true;
+
+        const fetchProducts = async () => {
+            try {
+                const data = await getProducts();
+                //setTimeout(() => {
+                    if (isMounted) {
+                        setProducts(data);
+                        setIsLoading(false);
+                    }
+                //}, 5000)
+            } catch (err) {
+                if (isMounted) {
+                    setError(`Erreur lors du chargement des donnéees : ${err.message}`);
+                    setIsLoading(false);
+                }
+            }
+        };
+
+        (async () => { await fetchProducts(); })();
+
+        return () => { isMounted = false; };
     }, []);
+
+    if (isLoading) {
+        return (
+            <div className="container mx-auto px-4 mt-20">
+                <TableSkeleton rows={4} />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="container mx-auto mt-20 p-4">
+                <ErrorMessage error={error} />
+            </div>
+        );
+    }
 
     return (
         <div className="container mx-auto px-4 mt-20">
@@ -77,7 +116,7 @@ const InventoryPage = () => {
                     ))}
                     {products.length === 0 && (
                         <tr>
-                            <td colSpan="3" className="px-6 py-8 text-center text-white bg-primary rounded-lg">
+                            <td colSpan="3" className="px-6 py-4 text-center bg-background-accent text-secondary rounded-lg">
                                 🔍 Aucun produit trouvé.
                             </td>
                         </tr>
@@ -113,7 +152,7 @@ const InventoryPage = () => {
                     e.stopPropagation();
                     window.location.href = '/add-product'
                 }}
-                className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-background-accent text-secondary px-6 py-3 rounded-full shadow-lg flex items-center gap-2 cursor-pointer"
+                className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-background-accent text-secondary px-15 py-3 rounded-full shadow-lg flex items-center gap-2 cursor-pointer"
             >
                 <motion.svg
                     className="w-5 h-5"
