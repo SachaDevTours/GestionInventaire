@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { useLocation } from 'react-router-dom';
 
 const ProductNotification = () => {
@@ -33,7 +34,7 @@ const ProductNotification = () => {
 
                     <div className="ml-3">
                         <p className="font-bold">Succès</p>
-                        <p className="text-sm">Le produit a été créé avec succès !</p>
+                        <p className="text-sm">Produit ajouté avec succés !</p>
                     </div>
                 </div>
             </div>

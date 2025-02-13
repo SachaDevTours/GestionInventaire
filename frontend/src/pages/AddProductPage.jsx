@@ -4,6 +4,7 @@ import { addProduct } from "../services/api";
 
 const AddProductPage = () => {
     const navigate = useNavigate();
+
     const [productName, setProductName] = useState("");
     const [macAddress, setMacAddress] = useState("");
     const [imageFile, setImageFile] = useState(null);
@@ -28,13 +29,13 @@ const AddProductPage = () => {
 
         const response = await addProduct(productName, macAddress, imageFile);
 
-        //if (response.success) {
+        if (response.success) {
             navigate("/", {
                 state: { productCreated: true }
             });
-        //} else {
-            //setError(response.message || "Erreur lors de l'ajout du produit.");
-        //}
+        } else {
+            setError(response.message || "Erreur lors de l'ajout du produit.");
+        }
     };
 
     return (
