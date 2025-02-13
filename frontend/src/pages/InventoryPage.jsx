@@ -39,7 +39,7 @@ const InventoryPage = () => {
                             <td
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    navigate("/product", {state: {product}})
+                                    navigate(`/product/${product.id_mac}`);
                                 }
                                 }
                                 className="px-6 py-4 text-sm font-medium cursor-pointer text-accent bg-background-secondary rounded-l-lg"

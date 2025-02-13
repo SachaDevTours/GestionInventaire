@@ -1,13 +1,65 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { getProduct } from "../services/api";
 
 const ProductPage = () => {
-    const location = useLocation();
-    const product = location.state?.product;
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [product, setProduct] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    if (!product) {
-        return <div className="container mx-auto mt-10 text-center text-red-500 text-xl">❌ Produit non trouvé.</div>;
+    console.log(id)
+
+    useEffect(() => {
+        let isMounted = true;
+
+        (async () => {
+            try {
+                if (!id) {
+                    throw new Error("ID du produit manquant");
+                }
+
+                const productData = await getProduct(id);
+
+                if (isMounted) {
+                    if (productData) {
+                        setProduct(productData);
+                    } else {
+                        setError("Produit non trouvé");
+                    }
+                }
+            } catch (err) {
+                if (isMounted) {
+                    setError("Erreur lors du chargement du produit");
+                }
+            } finally {
+                if (isMounted) {
+                    setIsLoading(false);
+                }
+            }
+        })();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [id]);
+
+    if (isLoading) {
+        return (
+            <div className="container mx-auto mt-20 text-center text-accent">
+                Chargement...
+            </div>
+        );
+    }
+
+    if (error || !product) {
+        return (
+            <div className="container mx-auto mt-10 text-center text-red-500 text-xl">
+                ❌ {error || "Produit non trouvé."}
+            </div>
+        );
     }
 
     return (
@@ -27,9 +79,9 @@ const ProductPage = () => {
                         initial={{ scale: 0.9 }}
                         animate={{ scale: 1 }}
                         transition={{ duration: 0.3 }}
-                        src={product.image || "/api/placeholder/160/160"}
+                        src={product.image || "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"}
                         className="rounded-lg h-40 w-40 object-cover border border-accent/20 hover:scale-105 transition-transform duration-300"
-                        alt={product.nom}
+                        alt={product.name}
                     />
                 </div>
 
@@ -43,7 +95,7 @@ const ProductPage = () => {
                 <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => window.history.back()}
+                    onClick={() => navigate('/')}
                     className="mt-6 w-full bg-background-accent text-secondary px-6 py-3 rounded-lg shadow-lg hover:bg-background-accent/80 hover:shadow-xl transition-all duration-300 ease-in-out"
                 >
                     Retour à l'inventaire
