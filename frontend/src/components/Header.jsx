@@ -2,11 +2,14 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <header className="bg-primary text-secondary py-2 px-4 md:py-4 md:px-6 flex items-center shadow-md fixed w-full top-0 z-50">
-            {/* Bouton Retour avec texte conditionnel */}
+        <header className="text-primary py-2 px-4 md:py-4 md:px-6 flex items-center shadow-lg fixed w-full top-0 z-50">
             <button
-                className="text-secondary flex items-center gap-2 hover:text-gray-200 transition-colors duration-200 p-2 -ml-2 md:p-0 md:ml-0"
-                onClick={() => window.history.back()}
+                className="flex items-center gap-2 transition-colors duration-200 p-2 -ml-2 md:p-0 md:ml-0"
+
+                onClick={(e) => {
+                    e.stopPropagation();
+                    window.history.back()
+                }}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,5 @@
 import { QRCodeSVG } from "qrcode.react";
 import React from "react";
-import ReactDOMServer from "react-dom/server";
 
 /**
  * Génère et télécharge un QR Code en format SVG.
@@ -9,6 +8,11 @@ import ReactDOMServer from "react-dom/server";
  */
 export const downloadQRCodeSVG = (qrValue, fileName) => {
     const svgContainer = document.createElement("div");
+    svgContainer.style.position = 'absolute';
+    svgContainer.style.width = '0';
+    svgContainer.style.height = '0';
+    svgContainer.style.overflow = 'hidden';
+    svgContainer.style.visibility = 'hidden';
     document.body.appendChild(svgContainer);
 
     import("react-dom").then((ReactDOM) => {
