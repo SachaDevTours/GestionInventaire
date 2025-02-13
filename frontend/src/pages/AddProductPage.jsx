@@ -8,15 +8,34 @@ const AddProductPage = () => {
     const [productName, setProductName] = useState("");
     const [macAddress, setMacAddress] = useState("");
     const [imageFile, setImageFile] = useState(null);
+
     const [preview, setPreview] = useState(null);
     const [error, setError] = useState("");
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        if (file) {
-            setImageFile(file);
-            setPreview(URL.createObjectURL(file));
+        if (!file)
+            return;
+
+        setImageFile("");
+
+        const validExtensions = ['image/jpeg', 'image/jpg', 'image/png'];
+        if (!validExtensions.includes(file.type)) {
+            setError("Format de fichier non valide. Seuls les formats JPG et PNG sont acceptés.");
+            e.target.value = ''; // Reset input
+            return;
         }
+
+        const maxSize = 10 * 1024 * 1024;
+        if (file.size > maxSize) {
+            setError("L'image est trop volumineuse. La taille maximale est de 10MB.");
+            e.target.value = '';
+            return;
+        }
+
+        setError("");
+        setImageFile(file);
+        setPreview(URL.createObjectURL(file));
     };
 
     const handleRemoveImage = () => {
@@ -120,6 +139,10 @@ const AddProductPage = () => {
                                 <img
                                     src={preview}
                                     alt="Aperçu"
+                                    onError={(e) => {
+                                        const target = e.currentTarget;
+                                        target.src = "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
+                                    }}
                                     className="rounded-lg h-40 w-40 object-cover border border-accent/20"
                                 />
                             </div>
