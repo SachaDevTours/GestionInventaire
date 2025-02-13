@@ -6,6 +6,7 @@ import { getProducts } from "../services/api";
 import { downloadQRCodeSVG } from "../utils/qrCodeUtils";
 import TableSkeleton from "../components/skeletons/TableSkeleton.jsx";
 import ErrorMessage from "../components/ErrorMessage.jsx";
+import ProductNotification from "../components/ProductNotification.jsx";
 
 const InventoryPage = () => {
     const [products, setProducts] = useState([]);
@@ -57,6 +58,8 @@ const InventoryPage = () => {
 
     return (
         <div className="container mx-auto px-4 mt-20">
+            <ProductNotification />
+
             <div className="overflow-x-auto rounded-lg">
                 <table className="w-full border-separate border-spacing-y-2">
                     <thead>
