@@ -28,11 +28,13 @@ const AddProductPage = () => {
 
         const response = await addProduct(productName, macAddress, imageFile);
 
-        if (response.success) {
-            navigate("/");
-        } else {
-            setError(response.message || "Erreur lors de l'ajout du produit.");
-        }
+        //if (response.success) {
+            navigate("/", {
+                state: { productCreated: true }
+            });
+        //} else {
+            //setError(response.message || "Erreur lors de l'ajout du produit.");
+        //}
     };
 
     return (
@@ -43,7 +45,7 @@ const AddProductPage = () => {
                 </h2>
 
                 {error && (
-                    <div className="text-red-500 bg-background-accent/10 p-3 rounded-md text-center mb-4">
+                    <div className="text-secondary bg-background-error p-3 rounded-md text-center mb-4">
                         {error}
                     </div>
                 )}
