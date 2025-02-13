@@ -19,6 +19,13 @@ const AddProductPage = () => {
         }
     };
 
+    const handleRemoveImage = () => {
+        setImageFile(null);
+        setPreview(null);
+        const fileInput = document.querySelector('input[type="file"]');
+        if (fileInput) fileInput.value = '';
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -84,13 +91,30 @@ const AddProductPage = () => {
                         <label className="block text-primary font-medium mb-2">
                             Image du produit (optionnel)
                         </label>
-                        <input
-                            type="file"
-                            name="image"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                            className="w-full p-3 bg-background-secondary border border-accent/20 rounded-lg cursor-pointer text-primary file:bg-background-accent file:text-secondary file:border-0 file:rounded-md file:px-4 file:py-2 file:mr-4 file:cursor-pointer file:hover:bg-background-accent/80 file:transition-colors"
-                        />
+                        <div className="relative flex items-center">
+                            <input
+                                type="file"
+                                name="image"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                className="w-full p-3 bg-background-secondary border border-accent/20 rounded-lg cursor-pointer text-primary file:bg-background-accent file:text-secondary file:border-0 file:rounded-md file:px-4 file:py-2 file:mr-4 file:cursor-pointer file:hover:bg-background-accent/80 file:transition-colors"
+                            />
+                            {preview && (
+                                <button
+                                    type="button"
+                                    onClick={handleRemoveImage}
+                                    className="absolute right-5 text-accent cursor-pointer"
+                                    title="Supprimer l'image"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20"
+                                         fill="currentColor">
+                                        <path fillRule="evenodd"
+                                              d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                              clipRule="evenodd"/>
+                                    </svg>
+                                </button>
+                            )}
+                        </div>
                         {preview && (
                             <div className="mt-4 flex justify-center">
                                 <img
