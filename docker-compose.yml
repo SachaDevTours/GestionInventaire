@@ -5,6 +5,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:80"
+    environment:
+      - HOST=${HOST}
     depends_on:
       - backend
 
@@ -17,7 +19,7 @@ services:
     volumes:
       - ./backend:/var/www/html
     environment:
-      - DB_HOST=db
+      - DB_HOST=${DB_HOST}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
