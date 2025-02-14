@@ -3,6 +3,7 @@ namespace Config;
 
 use PDO;
 use PDOException;
+use Dotenv\Dotenv;
 
 class Database {
     private static $pdo = null;
@@ -10,15 +11,26 @@ class Database {
     public static function getConnection() {
         if (self::$pdo === null) {
             try {
-                $host = "192.168.45.59";
-                $dbname = "gestion-inventaire";
-                $username = "root";
-                $password = "root_password";
+                
+                $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+                $dotenv->load();
 
-                self::$pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password, [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-                ]);
+                $host = $_ENV['DB_HOST'];
+                $dbname = $_ENV['DB_NAME'];
+                $username = $_ENV['DB_USER'];
+                $password = $_ENV['DB_PASSWORD'];
+                $charset = $_ENV['DB_CHARSET'] ?? 'utf8';
+
+                self::$pdo = new PDO(
+                    "mysql:host=$host;dbname=$dbname;charset=$charset",
+                    $username,
+                    $password,
+                    [
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                    ]
+                );
+
             } catch (PDOException $e) {
                 die(json_encode(["error" => "Erreur de connexion : " . $e->getMessage()]));
             }
