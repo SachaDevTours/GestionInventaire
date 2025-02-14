@@ -34,6 +34,12 @@ class ProductController {
             return $response->withStatus(400)->withHeader('Content-Type', 'application/json');
         }
 
+        if (isset($files['image']) && $files['image']->getError() === UPLOAD_ERR_OK) {
+            $data['image'] = $files['image'];
+        } else {
+            $data['image'] = null;
+        }
+
         $result = $this->productService->addProduct($data, $files);
         $response->getBody()->write(json_encode($result));
         return $response->withHeader('Content-Type', 'application/json');

@@ -11,8 +11,9 @@ class ProductService {
     }
 
     public function addProduct($data, $files) {
-        return $this->productRepo->addProduct($data, $files);
-    }
+        $image = isset($files['image']) && $files['image']->getError() === UPLOAD_ERR_OK ? $files['image'] : null;
+        return $this->productRepo->addProduct($data, $image);
+    }    
 
     public function getAllProducts() {
         return $this->productRepo->getAllProducts();

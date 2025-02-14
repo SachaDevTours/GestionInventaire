@@ -17,3 +17,5 @@ return function (App $app, ProductController $productController) {
     $app->delete('/product', [$productController, 'deleteProduct']);
 
 };
+
+
