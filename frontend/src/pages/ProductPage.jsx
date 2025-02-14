@@ -76,7 +76,7 @@ const ProductPage = () => {
                         initial={{scale: 0.9}}
                         animate={{scale: 1}}
                         transition={{duration: 0.3}}
-                        src={product.image || "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"}
+                        src={product.url_image || "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"}
                         className="rounded-lg h-40 w-40 object-cover border border-accent/20 hover:scale-105 transition-transform duration-300"
                         alt={product.name}
                     />
