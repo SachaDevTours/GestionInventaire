@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../services/api";
 
-import {Button, DropZone, FileTrigger, Form, Input, Label, TextField} from "react-aria-components";
+import {Button, Form, Input, Label, TextField} from "react-aria-components";
 
 const AddProductPage = () => {
     const navigate = useNavigate();
@@ -115,9 +115,6 @@ const AddProductPage = () => {
                         <Label className="block text-primary font-medium mb-2">
                             Image du produit (optionnel)
                         </Label>
-                        <FileTrigger acceptedFileTypes={['image/png']}>
-                            <Button>Select files</Button>
-                        </FileTrigger>
                         <div className="relative flex items-center">
                             <input
                                 type="file"
