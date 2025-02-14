@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../services/api";
 
+import {Button, DropZone, FileTrigger, Form, Input, Label, TextField} from "react-aria-components";
+
 const AddProductPage = () => {
     const navigate = useNavigate();
 
@@ -42,7 +44,8 @@ const AddProductPage = () => {
         setImageFile(null);
         setPreview(null);
         const fileInput = document.querySelector('input[type="file"]');
-        if (fileInput) fileInput.value = '';
+        if (fileInput)
+            fileInput.value = '';
     };
 
     const handleSubmit = async (e) => {
@@ -77,39 +80,44 @@ const AddProductPage = () => {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label className="block text-primary font-medium mb-2">
+                <Form onSubmit={handleSubmit} className="space-y-6">
+                    <TextField
+                        name='productName'
+                        value={productName}
+                        onChange={setProductName}
+                        className="block w-full"
+                    >
+                        <Label className="block text-primary font-medium mb-2">
                             Nom du produit
-                        </label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={productName}
-                            onChange={(e) => setProductName(e.target.value)}
+                        </Label>
+                        <Input
                             className="w-full p-3 bg-background-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-primary"
                             required
                         />
-                    </div>
+                    </TextField>
 
-                    <div>
-                        <label className="block text-primary font-medium mb-2">
+                    <TextField
+                        name="macAddress"
+                        value={macAddress}
+                        onChange={setMacAddress}
+                        className="block w-full"
+                    >
+                        <Label className="block text-primary font-medium mb-2">
                             Adresse MAC
-                        </label>
-                        <input
-                            type="text"
-                            name="macAddress"
-                            value={macAddress}
-                            onChange={(e) => setMacAddress(e.target.value)}
+                        </Label>
+                        <Input
                             className="w-full p-3 bg-background-secondary border border-accent/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent text-primary"
                             required
                         />
-                    </div>
+                    </TextField>
 
                     <div>
-                        <label className="block text-primary font-medium mb-2">
+                        <Label className="block text-primary font-medium mb-2">
                             Image du produit (optionnel)
-                        </label>
+                        </Label>
+                        <FileTrigger acceptedFileTypes={['image/png']}>
+                            <Button>Select files</Button>
+                        </FileTrigger>
                         <div className="relative flex items-center">
                             <input
                                 type="file"
@@ -149,13 +157,13 @@ const AddProductPage = () => {
                         )}
                     </div>
 
-                    <button
+                    <Button
                         type="submit"
                         className="w-full bg-background-accent text-secondary px-6 py-3 rounded-lg hover:bg-background-accent/80 hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
                     >
                         Ajouter
-                    </button>
-                </form>
+                    </Button>
+                </Form>
             </div>
         </div>
     );
