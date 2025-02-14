@@ -3,3 +3,4 @@
 /backend/vendor/
 /backend/composer.lock
 /frontend/
+/backend/src/uploads/

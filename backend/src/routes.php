@@ -12,8 +12,8 @@ return function (App $app, ProductController $productController) {
 
     // $app->get('/products', [$productController, 'getAllProducts']);
     $app->get('/products', [$productController, 'getProducts']);
-    $app->post('/product', [$productController, 'addProduct']);
-    $app->put('/product', [$productController, 'updateProduct']);
+    $app->post('/products', [$productController, 'addProduct']);
+    $app->put('/products', [$productController, 'updateProduct']);
     $app->delete('/product', [$productController, 'deleteProduct']);
 
 };

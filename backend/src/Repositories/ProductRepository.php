@@ -11,7 +11,7 @@ class ProductRepository {
     }
 
     public function addProduct($data, $files) {
-        $uploadDir = __DIR__ . '/../../uploads/';
+        $uploadDir = __DIR__ . '/../uploads/';
         $imageName = null;
         $urlImage = null;
     
@@ -29,6 +29,8 @@ class ProductRepository {
     
                 $image->moveTo($imagePath);
                 $urlImage = "http://" . $_SERVER['HTTP_HOST'] . "/uploads/" . $imageName;
+                // var_dump(__DIR__);
+                // $urlImage = "/backend/uploads/" . $imageName;
             } else {
                 return ["error" => "Erreur lors de l'upload de l'image : " . $image->getError()];
             }
