@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost";
+const API_URL = import.meta.env.HOST;
 
 export const getProducts = async () => {
     try {
