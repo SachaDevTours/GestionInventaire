@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { getProducts } from "../services/api";
@@ -63,15 +63,28 @@ const InventoryPage = () => {
             <ProductNotification />
 
             <div className="overflow-x-auto rounded-lg">
-                <Table className="w-full border-separate border-spacing-y-2">
+                <Table
+                    className="w-full border-separate border-spacing-y-2"
+                    aria-label={'Liste des produits disponibles'}
+                >
                     <TableHeader>
-                        <Column isRowHeader className="px-6 py-3 text-left text-sm font-semibold text-primary bg-background-secondary rounded-l-lg">
+                        <Column
+                            isRowHeader
+                            className="px-6 py-3 text-left text-sm font-semibold text-primary bg-background-secondary rounded-l-lg"
+                            aria-label={`Voir les détails`}
+                        >
                             Nom du Produit
                         </Column>
-                        <Column className="px-6 py-3 text-left text-sm font-semibold text-primary bg-background-secondary">
+                        <Column
+                            className="px-6 py-3 text-left text-sm font-semibold text-primary bg-background-secondary"
+                            aria-label={`Voir les détails`}
+                        >
                             Adresse MAC
                         </Column>
-                        <Column className="px-6 py-3 text-center text-sm font-semibold text-primary bg-background-secondary rounded-r-lg">
+                        <Column
+                            className="px-6 py-3 text-center text-sm font-semibold text-primary bg-background-secondary rounded-r-lg"
+                            aria-label={`Voir les détails`}
+                        >
                             QR Code
                         </Column>
                     </TableHeader>
@@ -79,19 +92,23 @@ const InventoryPage = () => {
                     {products.map((product) => (
                         <Row key={product.id_mac}>
                             <Cell
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    navigate(`/product/${product.id_mac}`);
-                                }
-                                }
                                 className="px-6 py-4 text-sm font-medium cursor-pointer text-accent bg-background-secondary rounded-l-lg"
+                                aria-label={`Voir les détails de ${product.name}`}
                             >
-                                {product.name}
+                                <Link to={`/product/${product.id_mac}`} >
+                                    {product.name}
+                                </Link>
                             </Cell>
-                            <Cell className="px-6 py-4 text-sm text-primary bg-background-secondary">
+                            <Cell
+                                className="px-6 py-4 text-sm text-primary bg-background-secondary"
+                                aria-label={`Identifiant MAC: ${product.id_mac}`}
+                            >
                                 {product.id_mac}
                             </Cell>
-                            <Cell className="px-6 py-4 text-center bg-background-secondary rounded-r-lg">
+                            <Cell
+                                className="px-6 py-4 text-center bg-background-secondary rounded-r-lg"
+                                aria-label={`Voir les détails`}
+                            >
                                 <button
                                     className="inline-flex items-center px-3 py-1 border border-accent text-accent rounded-md cursor-pointer"
                                     onClick={(e) => {
@@ -119,7 +136,11 @@ const InventoryPage = () => {
                     ))}
                     {products.length === 0 && (
                         <Row>
-                            <Cell colSpan="3" className="px-6 py-4 text-center bg-background-accent text-secondary rounded-lg">
+                            <Cell
+                                colSpan="3"
+                                className="px-6 py-4 text-center bg-background-accent text-secondary rounded-lg"
+                                aria-label={`Aucun produit trouvé`}
+                            >
                                 🔍 Aucun produit trouvé.
                             </Cell>
                         </Row>
