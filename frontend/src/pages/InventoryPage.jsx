@@ -8,6 +8,8 @@ import TableSkeleton from "../components/skeletons/TableSkeleton.jsx";
 import ErrorMessage from "../components/ErrorMessage.jsx";
 import ProductNotification from "../components/ProductNotification.jsx";
 
+import {Cell, Column, Row, Table, TableBody, TableHeader} from "react-aria-components";
+
 const InventoryPage = () => {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
@@ -61,24 +63,22 @@ const InventoryPage = () => {
             <ProductNotification />
 
             <div className="overflow-x-auto rounded-lg">
-                <table className="w-full border-separate border-spacing-y-2">
-                    <thead>
-                    <tr>
-                        <th className="px-6 py-3 text-left text-sm font-semibold text-primary bg-background-secondary rounded-l-lg">
+                <Table className="w-full border-separate border-spacing-y-2">
+                    <TableHeader>
+                        <Column isRowHeader className="px-6 py-3 text-left text-sm font-semibold text-primary bg-background-secondary rounded-l-lg">
                             Nom du Produit
-                        </th>
-                        <th className="px-6 py-3 text-left text-sm font-semibold text-primary bg-background-secondary">
+                        </Column>
+                        <Column className="px-6 py-3 text-left text-sm font-semibold text-primary bg-background-secondary">
                             Adresse MAC
-                        </th>
-                        <th className="px-6 py-3 text-center text-sm font-semibold text-primary bg-background-secondary rounded-r-lg">
+                        </Column>
+                        <Column className="px-6 py-3 text-center text-sm font-semibold text-primary bg-background-secondary rounded-r-lg">
                             QR Code
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                        </Column>
+                    </TableHeader>
+                    <TableBody>
                     {products.map((product) => (
-                        <tr key={product.id_mac}>
-                            <td
+                        <Row key={product.id_mac}>
+                            <Cell
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     navigate(`/product/${product.id_mac}`);
@@ -87,11 +87,11 @@ const InventoryPage = () => {
                                 className="px-6 py-4 text-sm font-medium cursor-pointer text-accent bg-background-secondary rounded-l-lg"
                             >
                                 {product.name}
-                            </td>
-                            <td className="px-6 py-4 text-sm text-primary bg-background-secondary">
+                            </Cell>
+                            <Cell className="px-6 py-4 text-sm text-primary bg-background-secondary">
                                 {product.id_mac}
-                            </td>
-                            <td className="px-6 py-4 text-center bg-background-secondary rounded-r-lg">
+                            </Cell>
+                            <Cell className="px-6 py-4 text-center bg-background-secondary rounded-r-lg">
                                 <button
                                     className="inline-flex items-center px-3 py-1 border border-accent text-accent rounded-md cursor-pointer"
                                     onClick={(e) => {
@@ -114,18 +114,18 @@ const InventoryPage = () => {
                                         <line x1="12" y1="15" x2="12" y2="3"/>
                                     </svg>
                                 </button>
-                            </td>
-                        </tr>
+                            </Cell>
+                        </Row>
                     ))}
                     {products.length === 0 && (
-                        <tr>
-                            <td colSpan="3" className="px-6 py-4 text-center bg-background-accent text-secondary rounded-lg">
+                        <Row>
+                            <Cell colSpan="3" className="px-6 py-4 text-center bg-background-accent text-secondary rounded-lg">
                                 🔍 Aucun produit trouvé.
-                            </td>
-                        </tr>
+                            </Cell>
+                        </Row>
                     )}
-                    </tbody>
-                </table>
+                    </TableBody>
+                </Table>
             </div>
 
             <motion.button
