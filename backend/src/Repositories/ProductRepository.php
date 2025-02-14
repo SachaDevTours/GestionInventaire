@@ -10,35 +10,28 @@ class ProductRepository {
         $this->pdo = $pdo;
     }
 
-    public function addProduct($data, $files) {
+    public function addProduct($data, $image = null) {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+        $host = $_SERVER['HTTP_HOST']; 
+        $baseUrl = $protocol . "://" . $host;
+
         $uploadDir = __DIR__ . '/../uploads/';
-        $imageName = null;
         $urlImage = null;
-    
-        if (isset($files['image'])) {
-            $image = $files['image'];
-    
-            if ($image->getError() === UPLOAD_ERR_OK) {
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                }
-    
-                $extension = pathinfo($image->getClientFilename(), PATHINFO_EXTENSION);
-                $imageName = uniqid() . '.' . $extension;
-                $imagePath = $uploadDir . $imageName;
-    
-                $image->moveTo($imagePath);
-                $urlImage = "http://" . $_SERVER['HTTP_HOST'] . "/uploads/" . $imageName;
-                // var_dump(__DIR__);
-                // $urlImage = "/backend/uploads/" . $imageName;
-            } else {
-                return ["error" => "Erreur lors de l'upload de l'image : " . $image->getError()];
+
+        if ($image) {
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
             }
-        } else {
-            return ["error" => "Aucune image reçue dans la requête"];
+
+            $extension = pathinfo($image->getClientFilename(), PATHINFO_EXTENSION);
+            $imageName = uniqid() . '.' . $extension;
+            $imagePath = $uploadDir . $imageName;
+
+            $image->moveTo($imagePath);
+            $urlImage = $baseUrl . "/uploads/" . $imageName; // 🔹 Stocke l'URL complète de l'image
         }
 
-        $urlQrCode = "http://" . $_SERVER['HTTP_HOST'] . "/generate_qr.php?id=" . $data['id_mac'];
+        $urlQrCode = $baseUrl . "/generate_qr.php?id=" . $data['id_mac'];
 
         $stmt = $this->pdo->prepare("INSERT INTO products (name, id_mac, url_image, url_qr_code) 
                                      VALUES (:name, :id_mac, :url_image, :url_qr_code)");
@@ -48,13 +41,14 @@ class ProductRepository {
             'url_image' => $urlImage,
             'url_qr_code' => $urlQrCode
         ]);
-    
+
         return [
             'message' => 'Produit ajouté avec succès',
             'url_image' => $urlImage,
             'url_qr_code' => $urlQrCode
         ];
     }
+    
     
     
 
