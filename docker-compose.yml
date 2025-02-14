@@ -1,16 +1,18 @@
 services:
   frontend:
+    env_file: ".env"
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "5173:80"
     environment:
-      - HOST=${HOST}
+      - API_URL=${API_URL}
     depends_on:
       - backend
 
   backend:
+    env_file: ".env"
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -23,6 +25,3 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
-
-volumes:
-  db-data:

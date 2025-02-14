@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.HOST;
+const API_URL = process.env.API_URL || "http://localhost:8000";
 
 export const getProducts = async () => {
+    console.log(API_URL);
     try {
         return await axios.get(`${API_URL}/products`).then(res => res.data);
     } catch (error) {
